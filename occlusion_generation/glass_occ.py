@@ -22,7 +22,7 @@ def cli():
                         default='orig_imgs/',
                         help='Picture path.')
     parser.add_argument('--new_pic_path',
-                        default='orig_imgs_mask/',
+                        default='orig_imgs_glass/',
                         help='Picture path.')
     parser.add_argument('--show', action='store_true', help='Whether show picture with mask or not.')
     parser.add_argument('--model', default='hog', choices=['hog', 'cnn'], help='Which face detection model to use.')
@@ -42,6 +42,7 @@ def cli():
     # subject path
     sub_path = glob.glob(args.pic_path+'/*')
     for sub_dir in sub_path:
+        print(sub_dir)
         # subject dir path
         new_sub_dir_path = new_dir_path_root + '/' + sub_dir.split('/')[-1]
         if os.path.exists(new_sub_dir_path) == False:
@@ -49,6 +50,7 @@ def cli():
         # img_dir
         img_dirs = glob.glob(sub_dir+'/*')
         for img_dir in img_dirs:
+            print(img_dir)
             # random a mask
             mask_id = random.randint(0, 9)
             mask_path = masks_path[mask_id]

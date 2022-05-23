@@ -123,13 +123,15 @@ def randommask(img_file, occ_path, ratio_orig, w, h, x_dist, y_dist, nose_v_in, 
     
 def main_random_mask(orig_path, occ_path, ratio_orig):
     img_sub_dir = glob.glob(orig_path+'/*/*')
+#     print(img_sub_dir)
     for i in range(len(img_sub_dir)):
         sub_dir = img_sub_dir[i].split('/')[-2]
+        print(sub_dir)
         occ_subdir = occ_path + '/' + sub_dir
         if os.path.exists(occ_subdir):
             pass
         else:
-            os.mkdir(occ_subdir)
+            os.makedirs(occ_subdir)
         occ_sub_file = occ_subdir + '/' +  img_sub_dir[i].split('/')[-1]
         if os.path.exists(occ_sub_file):
             pass
@@ -137,8 +139,10 @@ def main_random_mask(orig_path, occ_path, ratio_orig):
             os.mkdir(occ_sub_file)
         print(img_sub_dir[i])
         old_files = os.listdir(img_sub_dir[i])
+        print(old_files)
         old_files.sort(key=lambda x: int(x[7:-4]))  
         img_file = img_sub_dir[i] + '/' + old_files[0]
+        print(img_file)
         w, h, x_dist, y_dist, nose_v, found_face = randommask_first_image(img_file, occ_sub_file, ratio_orig)
 
         k = 1
@@ -150,7 +154,7 @@ def main_random_mask(orig_path, occ_path, ratio_orig):
 
 if __name__ == '__main__':
 
-    orig_path = 'orig_images/'
+    orig_path = 'orig_imgs/'
     occ_path = 'orig_occ/ramdom-mask/'
     ratio_orig_list = [0.05,0.10,0.15,0.20,0.25,0.30,0.35,0.40,0.45,0.50]
     for i in range(len(ratio_orig_list)):
